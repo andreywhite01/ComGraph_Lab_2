@@ -29,6 +29,7 @@ namespace ComGraph_Lab_1
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.RTrack = new System.Windows.Forms.TrackBar();
             this.aTrack = new System.Windows.Forms.TrackBar();
@@ -36,7 +37,6 @@ namespace ComGraph_Lab_1
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.directoryEntry1 = new System.DirectoryServices.DirectoryEntry();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.yTrack = new System.Windows.Forms.TrackBar();
             this.label5 = new System.Windows.Forms.Label();
@@ -50,15 +50,16 @@ namespace ComGraph_Lab_1
             this.aTextBox = new System.Windows.Forms.TextBox();
             this.pointAmount = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.approxTrack = new System.Windows.Forms.TrackBar();
             this.button1 = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.bTrack = new System.Windows.Forms.TrackBar();
+            this.bTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RTrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.aTrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.yTrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xTrack)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.approxTrack)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bTrack)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -84,10 +85,11 @@ namespace ComGraph_Lab_1
             // aTrack
             // 
             this.aTrack.Location = new System.Drawing.Point(58, 228);
-            this.aTrack.Maximum = 200;
+            this.aTrack.Minimum = 1;
             this.aTrack.Name = "aTrack";
             this.aTrack.Size = new System.Drawing.Size(204, 45);
             this.aTrack.TabIndex = 2;
+            this.aTrack.Value = 3;
             this.aTrack.Scroll += new System.EventHandler(this.valueChanged);
             // 
             // label1
@@ -116,15 +118,6 @@ namespace ComGraph_Lab_1
             this.label3.Size = new System.Drawing.Size(20, 23);
             this.label3.TabIndex = 6;
             this.label3.Text = "b";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(59, 286);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(44, 20);
-            this.textBox1.TabIndex = 7;
-            this.textBox1.Text = "0,1";
-            this.textBox1.TextChanged += new System.EventHandler(this.valueChanged);
             // 
             // label4
             // 
@@ -229,7 +222,7 @@ namespace ComGraph_Lab_1
             this.pointAmount.Name = "pointAmount";
             this.pointAmount.Size = new System.Drawing.Size(100, 20);
             this.pointAmount.TabIndex = 19;
-            this.pointAmount.Text = "10000";
+            this.pointAmount.Text = "100";
             this.pointAmount.TextChanged += new System.EventHandler(this.valueChanged);
             // 
             // label9
@@ -240,26 +233,6 @@ namespace ComGraph_Lab_1
             this.label9.Size = new System.Drawing.Size(125, 23);
             this.label9.TabIndex = 20;
             this.label9.Text = "К-во точек";
-            // 
-            // label10
-            // 
-            this.label10.Font = new System.Drawing.Font("Trebuchet MS", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label10.Location = new System.Drawing.Point(10, 382);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(148, 23);
-            this.label10.TabIndex = 22;
-            this.label10.Text = "Сглаживание";
-            // 
-            // approxTrack
-            // 
-            this.approxTrack.Location = new System.Drawing.Point(164, 382);
-            this.approxTrack.Maximum = 100;
-            this.approxTrack.Minimum = 1;
-            this.approxTrack.Name = "approxTrack";
-            this.approxTrack.Size = new System.Drawing.Size(117, 45);
-            this.approxTrack.TabIndex = 23;
-            this.approxTrack.Value = 100;
-            this.approxTrack.Scroll += new System.EventHandler(this.valueChanged);
             // 
             // button1
             // 
@@ -272,14 +245,37 @@ namespace ComGraph_Lab_1
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.paintBtn);
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 1;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // bTrack
+            // 
+            this.bTrack.Location = new System.Drawing.Point(58, 279);
+            this.bTrack.Maximum = 100;
+            this.bTrack.Name = "bTrack";
+            this.bTrack.Size = new System.Drawing.Size(204, 45);
+            this.bTrack.TabIndex = 25;
+            this.bTrack.Value = 10;
+            this.bTrack.Scroll += new System.EventHandler(this.valueChanged);
+            // 
+            // bTextBox
+            // 
+            this.bTextBox.Enabled = false;
+            this.bTextBox.Location = new System.Drawing.Point(268, 286);
+            this.bTextBox.Name = "bTextBox";
+            this.bTextBox.Size = new System.Drawing.Size(38, 20);
+            this.bTextBox.TabIndex = 26;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1125, 763);
+            this.Controls.Add(this.bTextBox);
+            this.Controls.Add(this.bTrack);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.approxTrack);
-            this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.pointAmount);
             this.Controls.Add(this.aTextBox);
@@ -293,7 +289,6 @@ namespace ComGraph_Lab_1
             this.Controls.Add(this.xTrack);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.yTrack);
-            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -308,7 +303,7 @@ namespace ComGraph_Lab_1
             ((System.ComponentModel.ISupportInitialize)(this.aTrack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.yTrack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xTrack)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.approxTrack)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bTrack)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -323,7 +318,6 @@ namespace ComGraph_Lab_1
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.DirectoryServices.DirectoryEntry directoryEntry1;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TrackBar yTrack;
         private System.Windows.Forms.Label label5;
@@ -337,9 +331,10 @@ namespace ComGraph_Lab_1
         private System.Windows.Forms.TextBox aTextBox;
         private System.Windows.Forms.TextBox pointAmount;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TrackBar approxTrack;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TrackBar bTrack;
+        private System.Windows.Forms.TextBox bTextBox;
     }
 }
 
